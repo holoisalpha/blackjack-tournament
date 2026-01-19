@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blackjack Tournament</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Blackjack Tournament</h1>
+      <div id="timer" class="timer"></div>
+    </header>
+
+    <main>
+      <div class="game-area">
+        <!-- Lobby View -->
+        <div id="lobby" class="view">
+          <div class="lobby-content">
+            <h2>Join Tournament</h2>
+            <p class="lobby-info">Tournament starting soon! Enter your name to join.</p>
+            <div class="join-form">
+              <input type="text" id="player-name" placeholder="Your name" maxlength="20" autocomplete="off">
+              <button id="join-btn" class="btn btn-primary">Join</button>
+            </div>
+            <div class="players-waiting">
+              <h3>Players Waiting: <span id="player-count">0</span></h3>
+            </div>
+
+            <div class="schedule-section">
+              <h3>Schedule Tournament</h3>
+              <div class="schedule-row">
+                <label>Start Time (ET):</label>
+                <input type="datetime-local" id="start-datetime">
+              </div>
+              <div class="schedule-row">
+                <label>End Time (ET):</label>
+                <input type="datetime-local" id="end-datetime">
+              </div>
+              <button id="schedule-tournament-btn" class="btn btn-primary btn-large">Schedule Tournament</button>
+              <div id="schedule-status" class="schedule-status"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game View -->
+        <div id="game" class="view hidden">
+          <div class="game-content">
+            <!-- Dealer Section -->
+            <div class="dealer-section">
+              <h3>Dealer <span id="dealer-value" class="hand-value"></span></h3>
+              <div id="dealer-cards" class="cards"></div>
+            </div>
+
+            <!-- Player Section -->
+            <div class="player-section">
+              <h3>Your Hand <span id="player-value" class="hand-value"></span></h3>
+              <div id="player-cards" class="cards"></div>
+            </div>
+
+            <!-- Betting Section -->
+            <div id="betting-section" class="betting-section">
+              <h3>Place Your Bet</h3>
+              <div class="bet-controls">
+                <button class="bet-btn" data-amount="10">$10</button>
+                <button class="bet-btn" data-amount="25">$25</button>
+                <button class="bet-btn" data-amount="50">$50</button>
+                <button class="bet-btn" data-amount="100">$100</button>
+                <button class="bet-btn" data-amount="250">$250</button>
+              </div>
+              <div class="custom-bet">
+                <input type="number" id="custom-bet" placeholder="Custom" min="10" max="500">
+                <button id="place-bet-btn" class="btn btn-primary">Bet</button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div id="action-section" class="action-section hidden">
+              <button id="hit-btn" class="btn btn-action">Hit</button>
+              <button id="stand-btn" class="btn btn-action">Stand</button>
+              <button id="double-btn" class="btn btn-action">Double</button>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result-section" class="result-section hidden">
+              <div id="result-message" class="result-message"></div>
+              <button id="next-hand-btn" class="btn btn-primary">Next Hand</button>
+            </div>
+
+            <!-- Player Stats -->
+            <div class="player-stats">
+              <div class="stat">
+                <span class="stat-label">Chips:</span>
+                <span id="chips" class="stat-value">1000</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Hands:</span>
+                <span id="hands-played" class="stat-value">0</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Won:</span>
+                <span id="hands-won" class="stat-value">0</span>
+              </div>
+            </div>
+
+            <div id="tournament-end-time" class="tournament-timer"></div>
+          </div>
+        </div>
+
+        <!-- End View -->
+        <div id="end" class="view hidden">
+          <div class="end-content">
+            <h2>Tournament Over!</h2>
+            <div id="winner-announcement" class="winner-announcement"></div>
+            <button id="new-tournament-btn" class="btn btn-primary btn-large">New Tournament</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard Sidebar -->
+      <aside class="leaderboard">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard-list" class="leaderboard-list"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
